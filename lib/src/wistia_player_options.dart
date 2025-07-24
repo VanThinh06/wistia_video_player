@@ -116,6 +116,9 @@ class WistiaPlayerOptions {
   /// This applies e.g. if there’s an aspect ratio discrepancy between the dimensions of the video and its container; this option is not connected to Alpha Transparency.
   final String wmode;
 
+  final String backgroundColor;
+
+
   const WistiaPlayerOptions({
     this.forceHD = false,
     this.autoPlay = true,
@@ -153,6 +156,7 @@ class WistiaPlayerOptions {
     this.volume = 1,
     this.volumeControl = true,
     this.wmode = 'transparent',
+    this.backgroundColor = '#ebfaf9'
   });
 
   get getEndVideoBehavior {
