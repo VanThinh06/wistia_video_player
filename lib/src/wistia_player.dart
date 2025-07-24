@@ -12,8 +12,11 @@ class WistiaPlayer extends StatefulWidget {
 
   final void Function(WistiaMetaData metaData)? onEnded;
 
+  final void Function()? onReady;
+
   /// Creates a [WistiaPlayer] widget.
-  const WistiaPlayer({super.key, this.onEnded, required this.controller});
+  const WistiaPlayer(
+      {super.key, this.onReady, this.onEnded, required this.controller});
 
   /// Converts fully qualified Wistia Url to video id.
   ///
@@ -79,6 +82,7 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 controller?.updateValue(
                   controller!.value.copyWith(isReady: true),
                 );
+                widget.onReady?.call();
                 break;
               }
             case 'Ended':
@@ -229,6 +233,7 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 margin: 0;
                 padding: 0;
                 background-color: ${controller.options.backgroundColor};
+                color: ${controller.options.backgroundColor};
                 overflow: hidden;
                 position: fixed;
                 height: 100%;
