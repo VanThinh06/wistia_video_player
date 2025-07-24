@@ -106,6 +106,6 @@ class WistiaPlayerController extends ValueNotifier<WistiaPlayerValue> {
   /// Returns true if the video is muted.
   bool isMuted() => _callMethod('isMuted()');
 
-  Future<void> replaceWith(String newVideoId) =>
+  void replaceWith(String newVideoId) =>
       _callMethod('replaceWith("$newVideoId")');
 }
