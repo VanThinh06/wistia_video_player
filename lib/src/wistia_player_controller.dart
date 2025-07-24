@@ -23,6 +23,10 @@ class WistiaPlayerController extends ValueNotifier<WistiaPlayerValue> {
 
   _callMethod(String methodString) {
     value.webViewController?.runJavaScript(methodString);
+    value.webViewController
+        ?.runJavaScriptReturningResult(methodString)
+        .then(print)
+        .catchError(print);
   }
 
   bool _isDisposed = false;
@@ -103,5 +107,5 @@ class WistiaPlayerController extends ValueNotifier<WistiaPlayerValue> {
   bool isMuted() => _callMethod('isMuted()');
 
   Future<void> replaceWith(String newVideoId) =>
-      _callMethod('replaceWith($newVideoId)');
+      _callMethod('replaceWith("$newVideoId")');
 }
