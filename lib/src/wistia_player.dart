@@ -12,7 +12,7 @@ class WistiaPlayer extends StatefulWidget {
 
   final void Function(WistiaMetaData metaData)? onEnded;
 
-  final void Function()? onReady;
+  final void Function(bool isReady)? onReady;
 
   /// Creates a [WistiaPlayer] widget.
   const WistiaPlayer(
@@ -82,7 +82,9 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 controller?.updateValue(
                   controller!.value.copyWith(isReady: true),
                 );
-                widget.onReady?.call();
+                if (widget.onReady != null) {
+                  widget.onReady!(true);
+                }
                 break;
               }
             case 'Ended':
@@ -136,11 +138,13 @@ class _WistiaPlayerState extends State<WistiaPlayer>
 
   Future<void> _loadWistiaContent() async {
     final htmlContent = _buildWistiaHTML(controller!);
+    if (widget.onReady != null) widget.onReady!(false);
     await _webViewController.loadHtmlString(htmlContent);
 
     controller?.updateValue(
       controller!.value.copyWith(webViewController: _webViewController),
     );
+    if (widget.onReady != null) Future.delayed(Duration(milliseconds: 2000), () { widget.onReady!(true);}); 
   }
 
   void listener() async {
@@ -333,10 +337,7 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 };
 
                 window.replaceWith = function(newId) {
-                  video.replaceWith(newId, {transition: "fade"});
-                  video.bind("ready", function() {
-                    sendMessageToDart('Ready');
-                  });
+                  video.replaceWith(newId);
                 };
               }
           });
