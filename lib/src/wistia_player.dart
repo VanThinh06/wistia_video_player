@@ -234,13 +234,15 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 height: 100%;
                 width: 100%;
             }
-            iframe, .playerm .wistia_embed {
+            iframe, .player {
               display: block;
               width: 100%;
               height: 100%;
               border: none;
+            }
+            iframe, .player, .wistia_embed {
               border-radius: 0 !important;
-              }
+            }
             </style>
             <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
         </head>
