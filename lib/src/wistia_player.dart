@@ -12,7 +12,7 @@ class WistiaPlayer extends StatefulWidget {
 
   final void Function(WistiaMetaData metaData)? onEnded;
 
-  final void Function()? onReady;
+  final void Function(bool isReady)? onReady;
 
   /// Creates a [WistiaPlayer] widget.
   const WistiaPlayer(
@@ -82,7 +82,9 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 controller?.updateValue(
                   controller!.value.copyWith(isReady: true),
                 );
-                widget.onReady?.call();
+                if (widget.onReady != null) {
+                  widget.onReady!(true);
+                }
                 break;
               }
             case 'Ended':
@@ -136,6 +138,7 @@ class _WistiaPlayerState extends State<WistiaPlayer>
 
   void _loadWistiaContent() {
     final htmlContent = _buildWistiaHTML(controller!);
+    if (widget.onReady != null) widget.onReady!(false);
     _webViewController.loadHtmlString(htmlContent);
 
     controller?.updateValue(
