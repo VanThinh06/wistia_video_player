@@ -144,7 +144,7 @@ class _WistiaPlayerState extends State<WistiaPlayer>
     controller?.updateValue(
       controller!.value.copyWith(webViewController: _webViewController),
     );
-    if (widget.onReady != null) Future.delayed(Duration(milliseconds: 2000), () { widget.onReady!(true);}); 
+    if (widget.onReady != null) Future.delayed(Duration(milliseconds: 200), () { widget.onReady!(true);}); 
   }
 
   void listener() async {
