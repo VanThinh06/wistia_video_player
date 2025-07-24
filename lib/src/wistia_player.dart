@@ -240,7 +240,10 @@ class _WistiaPlayerState extends State<WistiaPlayer>
               height: 100%;
               border: none;
             }
-            .wistia_chrome_37 {
+            #wistia_chrome_37 {
+              border-radius: 0 !important;
+            }
+            .w-chrome {
               border-radius: 0 !important;
             }
             </style>
