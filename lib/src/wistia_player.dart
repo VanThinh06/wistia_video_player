@@ -234,11 +234,12 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 height: 100%;
                 width: 100%;
             }
-            iframe, .player {
+            iframe, .playerm .wistia_embed {
               display: block;
               width: 100%;
               height: 100%;
               border: none;
+              border-radius: 0 !important;
               }
             </style>
             <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
@@ -319,6 +320,10 @@ class _WistiaPlayerState extends State<WistiaPlayer>
 
                 window.duration = function duration() {
                   return video.duration();
+                };
+
+                window.replaceWith = function(newId) {
+                  video.replaceWith(newId);
                 };
               }
           });
