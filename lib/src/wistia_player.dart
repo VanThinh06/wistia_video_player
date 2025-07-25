@@ -11,12 +11,18 @@ class WistiaPlayer extends StatefulWidget {
   final WistiaPlayerController controller;
 
   final void Function(WistiaMetaData metaData)? onEnded;
-
   final void Function()? onReady;
+  final VoidCallback? onEnterFullscreen;
+  final VoidCallback? onExitFullscreen;
 
   /// Creates a [WistiaPlayer] widget.
   const WistiaPlayer(
-      {super.key, this.onReady, this.onEnded, required this.controller});
+      {super.key,
+      this.onReady,
+      this.onEnded,
+      this.onEnterFullscreen,
+      this.onExitFullscreen,
+      required this.controller});
 
   /// Converts fully qualified Wistia Url to video id.
   ///
@@ -111,6 +117,24 @@ class _WistiaPlayerState extends State<WistiaPlayer>
                 );
                 break;
               }
+            case 'EnterFullscreen':
+              {
+                controller?.updateValue(
+                  controller!.value.copyWith(fakeFullScreen: true),
+                );
+                if (widget.onEnterFullscreen != null) {
+                  widget.onEnterFullscreen!();
+                }
+                break;
+              }
+            case 'CancelFullscreen':
+              controller?.updateValue(
+                controller!.value.copyWith(fakeFullScreen: false),
+              );
+              if (widget.onExitFullscreen != null) {
+                widget.onExitFullscreen!();
+              }
+              break;
           }
         },
       )
