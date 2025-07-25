@@ -119,18 +119,12 @@ class _WistiaPlayerState extends State<WistiaPlayer>
               }
             case 'EnterFullscreen':
               {
-                controller?.updateValue(
-                  controller!.value.copyWith(fakeFullScreen: true),
-                );
                 if (widget.onEnterFullscreen != null) {
                   widget.onEnterFullscreen!();
                 }
                 break;
               }
             case 'CancelFullscreen':
-              controller?.updateValue(
-                controller!.value.copyWith(fakeFullScreen: false),
-              );
               if (widget.onExitFullscreen != null) {
                 widget.onExitFullscreen!();
               }
@@ -358,6 +352,12 @@ class _WistiaPlayerState extends State<WistiaPlayer>
 
                 window.replaceWith = function(newId) {
                   video.replaceWith(newId);
+                  video.bind("enterfullscreen", function() {
+                  sendMessageToDart('EnterFullscreen');
+                });
+                  video.bind("cancelfullscreen", function() {
+                  sendMessageToDart('ExitFullscreen');
+                });
                 };
               }
           });
