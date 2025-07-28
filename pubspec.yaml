@@ -10,7 +10,7 @@ environment:
   flutter: ">=3.27.0"
 
 dependencies:
-  webview_flutter: ^4.10.0
+  webview_flutter: ^4.13.0
   flutter:
     sdk: flutter
 
